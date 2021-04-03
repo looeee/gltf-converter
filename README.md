@@ -35,8 +35,8 @@ Not all three.js loaders have been implemented, however adding a new one is quit
 
 ### Limitations
 
-* Multimaterials are not supported. Any model that uses multimaterials will probably not export at all, although this will be fixed very soon
 * The exporter currently always exports [MeshStandardMaterial](https://threejs.org/docs/#api/materials/MeshStandardMaterial). Other materials will be converted to this material type and may lose information
 * Models are loaded using three.js loaders. Some of these (FBX, Collada, OBJ, glTF) support pretty much everything that you can throw at them. Others are more limited, however if you upload a model and it doesn't even display in the original preview below, you can help improve the loaders by filing a [bug report](https://github.com/mrdoob/three.js/issues) and sharing your model.
+* Color management on the viewer is not correct, so the "Result" window will look darker. You can safely ignore this.
 
-All conversion happens on your PC, at no point are any models or textues uploaded to my server or stored in any way.
+All conversion happens on your PC, at no point are any models or textures uploaded to my server or stored in any way.
