@@ -1,0 +1,225 @@
+body {
+  margin: 0;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  line-height: 24px;
+  overscroll-behavior: none;
+}
+
+a {
+  color: #ff0;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+a,
+button,
+input,
+select {
+  pointer-events: auto;
+}
+
+.hide {
+  display: none;
+}
+#previews {
+  display: flex;
+  min-height: 40vh;
+  flex-wrap: wrap;
+}
+
+#previews:fullscreen {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  min-height: unset;
+}
+
+#fullscreen-button {
+  position: absolute;
+  z-index: 2;
+  bottom: 1em;
+  right: 0.75em;
+  color: silver;
+}
+
+#original-preview,
+#result-preview {
+  position: relative;
+  flex: 1;
+  flex-basis: 50%;
+  min-width: 13em;
+}
+#original-preview-text,
+#result-preview-text {
+  z-index: 3;
+  position: absolute;
+  top: 0.25em;
+  padding: 0;
+  margin: 0;
+  left: 0.25em;
+}
+
+#original-preview-canvas,
+#result-preview-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid silver;
+}
+
+.loading-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid silver;
+  text-align: center;
+  background: rgb(240, 183, 161);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(84, 84, 84, 1) 1%,
+    rgba(38, 37, 33, 1) 100%,
+    rgba(191, 110, 78, 1) 100%
+  );
+}
+
+.loading-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  max-width: 70%;
+  min-width: 50%;
+  transform: translate3d(-50%, -50%, 0);
+
+  border-radius: 60px;
+  overflow: hidden;
+  background-color: #eef1f3;
+
+  span {
+    display: block;
+  }
+}
+
+.bar {
+  background-color: #eef1f3;
+}
+
+.progress {
+  background-color: #75b800;
+  padding: 5px;
+  color: #fff;
+  width: 5px;
+}
+
+#file-upload-form {
+  text-align: center;
+
+  transition: all 1.5s ease-in-out;
+
+  a {
+    color: purple;
+  }
+
+  p {
+    margin: 0 auto 0.5em auto;
+    text-align: center;
+  }
+
+  &.border {
+    transition: all 1.5s ease-in-out;
+    border: 1px dashed $text-color;
+  }
+}
+
+#file-upload-button,
+#export {
+  transition: all 0.5s ease-in-out;
+  max-width: 70%;
+  min-width: 50%;
+  margin-top: 0.5em;
+  white-space: normal;
+}
+
+#options {
+  margin: auto;
+  width: fit-content;
+  text-align: left;
+}
+
+input[type="submit"]:disabled {
+  cursor: not-allowed;
+  background: #555555;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 1em;
+  margin: 0 0.5em 0.15em 0.5em;
+
+  input {
+    display: none;
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: silver;
+  border: 1px solid rgba(216, 216, 216, 0.5);
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 0.6em;
+  width: 0.6em;
+  left: 4px;
+  top: 2px;
+  background-color: white;
+  border: 1px solid rgba(216, 216, 216, 0.5);
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: $border-color;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(0.75em);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 0.5em;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

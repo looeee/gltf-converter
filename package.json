@@ -1,0 +1,22 @@
+{
+  "name": "gltf-converter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently --names \"ESBUILD,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run serve\" \"npm run watch\"",
+    "serve": "servez -p 8080",
+    "watch": "node watch.mjs"
+  },
+  "author": "Lewy Blue",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "esbuild": "^0.11.3",
+    "esbuild-glslify": "github:ayamflow/esbuild-glslify",
+    "servez": "^1.11.0"
+  },
+  "dependencies": {
+    "three": "^0.127.0"
+  }
+}

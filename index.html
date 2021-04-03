@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Convert to glTF Format</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <link
+      rel="icon"
+      href="https://discoverthreejs.com/favicon.ico"
+      type="image/x-icon"
+    />
+    <link type="text/css" rel="stylesheet" href="main.css" />
+
+    <script type="module" src="./dist/main.js"></script>
+  </head>
+
+  <body>
+    <main id="main">
+            <h1>Convert 3D models to GLTF</h1>
+
+
+            <p>
+              This app allows to you allows you to convert to glTF format
+              version using the three.js
+              <a href="https://threejs.org/examples/#misc_exporter_gltf"
+                >GLTFExporter</a
+              >.
+            </p>
+
+            <h3 id="supported-formats">Supported formats:</h3>
+
+            <ul>
+              <li>3MF</li>
+              <li>AMF</li>
+              <li>FBX</li>
+              <li>OBJ and MTL</li>
+              <li>GLTF and GLB version 2 (because why not? )</li>
+              <li>Collada ( DAE )</li>
+              <li>PCD (ASCII and Binary)</li>
+              <li>PLY (ASCII and Binary)</li>
+              <li>STL (ASCII and Binary)</li>
+            </ul>
+
+            <p>
+              Upload any textures alongside the model in JPG, PNG, GIF, BMP
+              format ( just upload all the files at the same time and the
+              converter will handle the rest ).
+            </p>
+
+            <h3 id="limitations">Limitations</h3>
+
+            <ul>
+              <li>
+                Multimaterials are not supported. Any model that uses
+                multimaterials will probably not export at all, although this
+                will be fixed very soon
+              </li>
+              <li>
+                The exporter currently always exports
+                <a
+                  href="https://threejs.org/docs/#api/materials/MeshStandardMaterial"
+                  >MeshStandardMaterial</a
+                >. Other materials will be converted to this material type and
+                may lose information.
+              </li>
+              <li>
+                Models are loaded using three.js loaders. Some of these (FBX,
+                Collada, OBJ, glTF) support pretty much everything that you can
+                throw at them. Others are more limited, however if you upload a
+                model and it doesn&rsquo;t even display in the original preview
+                below, you can help improve the loaders by filing a
+                <a href="https://github.com/mrdoob/three.js/issues"
+                  >bug report</a
+                >
+                and sharing your model.
+              </li>
+              <li>Color management is incorrect in the Results window, so the model will look darker. However, it is correct.</li>
+            </ul>
+
+            <div class="border-section">
+              <div id="file-upload-form">
+                <input
+                  id="file-upload-input"
+                  type="file"
+                  name="files[]"
+                  multiple=""
+                  class="hide"
+                />
+                <input
+                  type="submit"
+                  value="Upload or Drop Files Here"
+                  id="file-upload-button"
+                />
+                <div id="options">
+                  <label class="switch">
+                    <input
+                      id="option_binary"
+                      name="visible"
+                      type="checkbox"
+                      checked
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                  <span id="format_label">Binary (.glb)</span><br />
+                  <label class="switch">
+                    <input
+                      id="option_animations"
+                      name="visible"
+                      type="checkbox"
+                      checked
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                  <span>Include Animations</span><br />
+                  <label class="switch">
+                    <input
+                      id="option_visible"
+                      name="visible"
+                      type="checkbox"
+                      checked
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                  <span>Export only visible objects</span><br />
+                  <label class="switch">
+                    <input
+                      id="option_embedImages"
+                      name="visible"
+                      type="checkbox"
+                      checked
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                  <span>Embed Images</span><br />
+                  <label class="switch">
+                    <input
+                      id="option_forceindices"
+                      name="visible"
+                      type="checkbox"
+                      checked
+                    />
+                    <span class="slider round"></span>
+                  </label>
+                  <span
+                    >Force indices (required for Facebook compatibility)</span
+                  ><br />
+                </div>
+                <input
+                  type="submit"
+                  value="Export as GLB"
+                  id="export"
+                  disabled="disabled"
+                />
+              </div>
+              <div id="previews">
+                <div id="original-preview">
+                  <div id="original-loading-overlay" class="loading-overlay">
+                    <div id="original-loading-bar" class="loading-bar hide">
+                      <span id="original-bar" class="bar">
+                        <span id="original-progress" class="progress"></span>
+                      </span>
+                    </div>
+                  </div>
+                  <p id="original-preview-text">Original</p>
+                  <canvas id="original-preview-canvas"></canvas>
+                </div>
+                <div id="result-preview">
+                  <div id="result-loading-overlay" class="loading-overlay">
+                    <div id="result-loading-bar" class="loading-bar hide">
+                      <span id="result-bar" class="bar">
+                        <span id="result-progress" class="progress"></span>
+                      </span>
+                    </div>
+                  </div>
+                  <p id="result-preview-text">Result</p>
+                  <canvas id="result-preview-canvas"></canvas>
+                  <a href="#" id="fullscreen-button" title="Go fullscreen">
+                    <span
+                      class="fa fa-lg fa-arrows-alt"
+                      aria-hidden="true"
+                    ></span>
+                  </a>
+                </div>
+              </div>
+              <div id="messages" class="hide">
+                <h3>Messages received</h3>
+                <div id="errors-container" class="hide">
+                  <h5>Errors</h5>
+                  <div id="errors"></div>
+                </div>
+                <div id="warnings-container" class="hide">
+                  <h5>Warnings</h5>
+                  <div id="warnings"></div>
+                </div>
+                <div id="logs-container" class="hide">
+                  <h5>Logs</h5>
+                  <div id="logs"></div>
+                </div>
+              </div>
+            </div>
+
+    </main>
+  </body>
+</html>
