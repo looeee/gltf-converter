@@ -17,6 +17,6 @@
     "servez": "^1.11.0"
   },
   "dependencies": {
-    "three": "^0.130.0"
+    "three": "^0.131.1"
   }
 }
