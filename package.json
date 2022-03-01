@@ -14,7 +14,7 @@
     "concurrently": "^6.3.0",
     "esbuild": "^0.13.12",
     "esbuild-glslify": "github:ayamflow/esbuild-glslify",
-    "servez": "^1.12.0"
+    "servez": "^1.13.4"
   },
   "dependencies": {
     "three": "^0.134.0"
