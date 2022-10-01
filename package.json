@@ -12,7 +12,7 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^6.3.0",
-    "esbuild": "^0.13.12",
+    "esbuild": "^0.15.10",
     "esbuild-glslify": "github:ayamflow/esbuild-glslify",
     "servez": "^1.12.0"
   },
